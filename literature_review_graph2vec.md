@@ -6,12 +6,12 @@
 
 - **Graph Kernels and handicraft features**:
 
-  - Graph kernels evaluate smililarity (kernel value) between a pair graphs G and G'by recursively decomposing them into substructures.
+  - Graph kernels evaluate smililarity (kernel value) between a pair graphs G and G' by recursively decomposing them into substructures.
   - Can be used for clustering and classification.
   - Exhibit **2 limitation** 😒:
     1. Many of the the kernel methods do not provide explicit graph embeddings --> Unusable with graph data! 👎
     2. The substructures (walks, paths, etc) by these kernel are determined manually with specific well defined functions that helps extract substructures from graphs.
-       - This could be fixed by replacing the handicraft features by with ones that are learnt automatically from data
+       - This could be fixed by replacing the handicraft features with ones that are learnt automatically from data
 
 - **Learning substructure embeddings**:
 
@@ -46,7 +46,7 @@ The matrix of representations of all graphs is denoted as $\Phi \in \mathbb{R}^{
 - Let $G = (N,E,\lambda)$, represent a graph, where <br/>
   $N$ is a set of nodes and $E \subseteq (N \times N)$ be a set of edges. Graph $G$ is labeled if there exists a function $\lambda$ such that $\lambda : N \rightarrow l$ which assigns a unique label from alphabet $l$ to every node $n \in N$ otherwise $G$ is considered as unlabelled.
 
-- Edges code also be labeled with a function $\eta : E \rightarrow e$
+- Edges node can also be labeled with a function $\eta : E \rightarrow e$
 - Given $G = (N,E,\lambda)$ and $sg = (N_{sg},E_{sg}, \lambda_{sg})$, where $sg$ is a subgraphs of $G$ iff there exists an injective mapping $\mu : N_{sg} \rightarrow N$ such that $(n_1,n_2) \in E_{sg}$ iff $((\mu(n_1),\mu(n_2))) \in E.$
 - In this paper context, they specificly refer to a specific subgraphs called **rooted subgraphs**.
 - $d$ is the degree around node $n \in N$
@@ -59,37 +59,44 @@ The matrix of representations of all graphs is denoted as $\Phi \in \mathbb{R}^{
 - To learn a target's representation, this model exploits the notion of context, where a context is defined as a fixed number of words surrounding the target word.
 - Given a sequence of words {${w_1,w_2,\dots w_t, \dots, w_T}$}, $w_t$ is the target word that we need to learn its representation. The length of the context window is $c$.
 - The objective is to maximize the following likelihood:
-  $$
-
-\begin{align}
-\sum*{t=1}^T log Pr\left(w*{t-c},\dots, w\_{t+c}|w_t\right)
-\end{align}
 
 $$
-$\text{where } w_{t-c},\dots,w_{t+c} \text{ are the context of the target word } w_t.$
+\begin{align}
+\sum_{t=1}^T log  Pr\left(w_{t-c},\dots, w_{t+c}|w_t\right)
+\end{align}
 
+
+$$
+
+$\text{where } w_{t-c},\dots,w_{t+c} \text{ are the context of the target word } w_t.$
 $Pr(w_{t-c},\dots,w_{t+c})$ is computed as:
 
-
 $$
 
 \begin{align}
-\prod*{-c \leq j \leq c, j \neq 0} Pr(w*{t+j}|w_t)
+\prod_{-c \leq j \leq c, j \neq 0} Pr(w_{t+j}|w_t)
 \end{align}
+
 
 $$
 
 - $Pr(w_{t+j}|w_t)$ is defined as:
 
-
 $$
 
 \begin{align}
-\frac{exp(\vec{w*t} \cdot \vec{w'*{t+j}})}{\sum\_{w \in V} exp(\vec{w_t} \cdot \vec{w})}
+\frac{exp(\vec{w_t} \cdot \vec{w'_{t+j}})}{\sum_{w \in V} exp(\vec{w_t} \cdot \vec{w})}
 \end{align}
+
 
 $$
 
-
 where $\vec{w}$ and \vec{w'}$ are the input and output vectors of word $w$ and $V$ is the vocabulary of all the words.
+
+$$
+
+### Negative Sampling
+#
+
+
 $$

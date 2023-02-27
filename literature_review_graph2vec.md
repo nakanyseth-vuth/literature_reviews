@@ -70,31 +70,29 @@ $\text{where } w_{t-c},\dots,w_{t+c} \text{ are the context of the target word }
 $Pr(w_{t-c},\dots,w_{t+c})$ is computed as:
 
 $$
-
 \begin{align}
 \prod_{-c \leq j \leq c, j \neq 0} Pr(w_{t+j}|w_t)
 \end{align}
-
 $$
 
 - $Pr(w_{t+j}|w_t)$ is defined as:
 
 $$
-
 \begin{align}
 \frac{exp(\vec{w_t} \cdot \vec{w'_{t+j}})}{\sum_{w \in V} exp(\vec{w_t} \cdot \vec{w})}
 \end{align}
-
 $$
+
 where $\vec{w}$ and $\vec{w'}$ are the input and output vectors of word $w$ and $V$ is the vocabulary of all the words.
 
-
 ### Negative Sampling
+
 - If a word $w$ appears in the context of another word $w'$, then the vector embedding of $w$ is closer to that of $w'$ compared to any other randomly chosen word from the vocabulary.
 
 ## Neural document embedding models
+
 - This model words by considering a word $w_j \in \text{sequence of word } c(d_i)$ to be context of the document $d_i$ and tries to maximize the following log likelihood:
-  
+
 $$
 \begin{align}
 \sum_{t=1}^T log  Pr\left(w_{j}|d_i\right)
@@ -104,23 +102,24 @@ $$
 where, the probability $Pr(w_i|d)$ is defined as:
 
 $$
-
 \begin{align}
 \frac{exp(\vec{d} \cdot \vec{w'_{j}})}{\sum_{w \in V} exp(\vec{d} \cdot \vec{w})}
 \end{align}
-
 $$
 
 ## Methods: Learning Graph Representation
+
 - 2 reasons that make rooted subgraphs more easily controlled for learning graph embeddings: 👍
-  
-  1. Higher order substructure: It offers richer representation of composition of the graph. 
-  2. Non-linear substructure: Compared to linear sub-structures such as walks and paths, rooted subgraphs capture the inherent non-linearity in the graphs better. 
-      - A Walk is a sequence of vertices and edges of a graph i.e. if we traverse a graph then we get a walk. (Closed when starting and ending vertices are identical)
-      - A Path is an open walk in which no edge is repeated.
-  
+
+  1. Higher order substructure: It offers richer representation of composition of the graph.
+  2. Non-linear substructure: Compared to linear sub-structures such as walks and paths, rooted subgraphs capture the inherent non-linearity in the graphs better.
+     - A Walk is a sequence of vertices and edges of a graph i.e. if we traverse a graph then we get a walk. (Closed when starting and ending vertices are identical)
+     - A Path is an open walk in which no edge is repeated.
+
 ### Algorithm Overview
+
 - To train the skipgram model, we need to extract rooted subgraphs and assign a unique label for all the rooted subgraphs in the vocabulary. After, we deploy Weisfeiler-Lehman (WL) relabeling strategy.
 
 ### `graph2vec`: Algorithm
+
 ![graph2vec algorithm](/image/graph2vec_algo.png "graph2vec algorithm")

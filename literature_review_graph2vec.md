@@ -123,3 +123,19 @@ $$
 ### `graph2vec`: Algorithm
 
 ![graph2vec algorithm](/image/graph2vec_algo.png "graph2vec algorithm")
+
+- This algorithm consist of 2 main components:
+
+  1. Procedure to generate _rooted subgraph_ around every node given a graph
+  2. Procedure to learn the embedding of the graphs
+
+- The steps are:
+  1. Randomly initialize embeddings for all graphs (line 2)
+  2. Extract _rooted subgraphs_ in each graphs (line 8)
+  3. Iterative learn the corresponding graph's embedding
+
+### Extracting Rooted Subgraph
+
+- WL relabeling process was used to extract rooted subgraphs
+
+![getWLsubGraph algorithm](/image/getWLsubGraph_algo.png "getWLsubGraph algorithm")

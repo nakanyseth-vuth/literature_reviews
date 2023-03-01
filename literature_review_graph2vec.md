@@ -139,3 +139,32 @@ $$
 - WL relabeling process was used to extract rooted subgraphs
 
 ![getWLsubGraph algorithm](/image/getWLsubGraph_algo.png "getWLsubGraph algorithm")
+
+## Evaluation
+
+- The evaluation of `graph2vec` is based on downstream tasks of graph classification and clustering.
+- First they evaluate through benchmark datasets such as: MUTAG, PTC, PROTEINS, NCI1, NCI109, against node2vec, sub2vec, WL kernel, Deep WL kernel.
+- Then they evaluate with real-world datasets
+
+### Graph Classification
+
+- For each dataset, SVM classifer was trained with 90% of sample chosen at _random_ and evaluate its performace on 10% remaining samples as test set.
+- 5-fold cross validation was used on training set.
+- For each learning method, a common embeddings dimension size of 1024 is used.
+- **Effectiveness** metric is based on the average accuracy after running the experiment 5 times.
+- **Efficiency** metric is based on the time consumed for building graph embeddings (pre-training duration)
+
+![performace_benchmark](/image/graph2vecAccuracy.png "performace_benchmark")
+
+- **node2vec** being a lower order substructure embedding technique, it could only model local similarity within a confined neighborhood and fails to learn global structure similarity
+- **sub2vec**'s strategy to sample graph substructures and learn their embeddings is not suited for large graphs. sub2vec samples only one random walk (of fixed length).
+- **WL Kernel and Deep WL Kernel** perform good on all datasets given it is particularly designed for such tasks like Graph Classification.
+
+![performace_real_world](/image/graph2vecAccuracy_real_world.png "performace_real_world")
+
+### Graph Clustering
+
+- The metric used called **Adjusted Rand Index** (ARI). Its values lie in the range [-1,1]. But in this experiment, ARI is reported as percentage.
+- Higher ARI means higher correspindence to the truth data.
+
+![performace_clustering](/image/graph2vecAccuracy_clustering.png "performace_clustering")

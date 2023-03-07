@@ -22,7 +22,7 @@
 ## Feature Learning Framework
 
 - Let $G = (V,E)$ be a given network
-- Let $f : V \rightarrow \R^d$ be the mapping function from nodes to feature representations we aim to learn for downstream tasks.
+- Let $f : V \rightarrow \mathbb{R}^{d}$ be the mapping function from nodes to feature representations we aim to learn for downstream tasks.
   - $d$ is the parameter specifying the number of dimension of the feature representation
   - $f$ is a matrix of size $|V| \times d$ paramters
 - For every source node $u \in V$, $N_S(u) \subset V$ is a _network neighborhood of node_ $u$ generated through a neighborhood sampling strategy $S$

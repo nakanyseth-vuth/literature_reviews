@@ -18,3 +18,27 @@
 - The experiment for this method is based on 2 prediction tasks:
   1. Multi-label classification task
   2. Link prediction task
+
+## Feature Learning Framework
+
+- Let $G = (V,E)$ be a given network
+- Let $f : V \rarr \R^d$ be the mapping function from nodes to feature representations we aim to learn for downstream tasks. 
+  - $d$ is the parameter specifying the number of dimension of the feature representation
+  - $f$ is a matrix of size $|V| \times d$ paramters
+- For every source node $u \in V$, $N_S(u) \subset V$ is a _network neighborhood of node_ $u$ generated through a neighborhood sampling strategy $S$
+- The goal is to optimize the following objective functions, which maximizes the log-probability of observing a network neighborhood $N_S(u)$ for a node $u$
+$$
+\begin{align}
+\max_{{f}} \sum_{u \in V}  \left[- log  Z_u + \sum_{n_i \in N_S(u)} f(n_i) \cdot f(u)\right]
+\end{align}
+$$
+- Unlike Skip-gram architecture that is originally developed in the context of _natural language_, given a linear nature of text, the notion of neighborhood can be naturally defined using a sliding window over consecutive words.
+- Networks, however are not linear, to resolve this issue, a randomized procedure that samples many different neighborhoods of a given source node $u$ is proposed.
+
+### Classic search strategies
+
+- Generally, there are 2 extreme sampling strategies:
+  - **Breadth-first Sampling (BFS)**: The neighborhood $N_S$ is restricted to nodes which are immediate neighbors of the source
+  - **Depth-first Sampling (DFS)**: The neighborhood consists of nodes sequentially sampled at increasing distances from the source.
+- Under the _homophily hypothesis_, nodes that are highly interconnected and belong to similar network cluster or communitites should be embedded closely together.
+- Under _structural equivalence hypothesis_, nodes that have similar structural roles in networks should be embeded closely together.

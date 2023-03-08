@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QWikipedia: This is a cooccurrence network of words appearing in the first million bytes of the Wikipedia dump\\E$"}

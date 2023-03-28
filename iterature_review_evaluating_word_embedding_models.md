@@ -56,3 +56,30 @@ $$
 - This might not be comprehensive.
 
 ### 2. Word Analogy
+
+- When given a pair of words $a$ and $a^*$ and a third word $b$, the analogy relationship between $a$ and $a^*$ can be used to find the corresponding word $b$ to $b^*$. One example could be:
+- write : writing :: read : <u>reading</u>.
+- The _3CosAdd_ method solves for $b^*$ using the following equation:
+
+$$
+  \begin{align}
+    b^* = \underset{b^{'}}{\operatorname{argmax}}(cos(b^{'}, a^* - a + b))
+  \end{align}
+$$
+
+- Thus, high cosine similarity means that vectors share a similar director. However, it is important to note that _3CosAdd_ method normalizes vector lengths using cosine similarity. **Since cosine is inverse to the angle, high cosine similarity (close to 1) means the vectors share a very similar direction. Note that this metric normalizes (and thus ignore) the vector's lengths, unlike Euclidean distance between them.**
+- Alternatively, there is the _3CosMul_ method, which defined as:
+
+$$
+  \begin{align}
+    b^* = \underset{b^{'}}{\operatorname{argmax}} \frac{cos(b^{'},b)cos(b^{'}, a^*)}{cos(b^{'}, a)+\epsilon}
+  \end{align}
+$$
+
+- where $\epsilon = 0.001$ us used to prevent division by zero.
+- With _3CosMul_, small difference are enlarged while large ones are suppressed.
+- Many models score under 30% on analogy tests, suggesting that not all relations can be identified in this way.
+- It is mentioned that the analogy test is most successful when all the three source vectors are relatively close to the target vector. Accuracy of this test decreases as their distance increases.
+- Another seemingly counter-intuitive finding is that words with denser neighborhoods yields higher accuracy.
+
+- The analogy test is subjective. The dataset on which current models are trained does not encode our human sense and reasoning. Thus, given a word pair, the vector space model may find a different relationship from what human may find

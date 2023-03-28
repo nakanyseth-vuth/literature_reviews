@@ -1,2 +1,3 @@
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QWikipedia: This is a cooccurrence network of words appearing in the first million bytes of the Wikipedia dump\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDemonstration of Multifacedtedness: The facet, phonetic, morphological, syntactic, and other properties, of a word should contribute to its final representation.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qwhere \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q us used to prevent division by zero.\\E$"}

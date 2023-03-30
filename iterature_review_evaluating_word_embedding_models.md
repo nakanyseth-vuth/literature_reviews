@@ -83,3 +83,49 @@ $$
 - Another seemingly counter-intuitive finding is that words with denser neighborhoods yields higher accuracy.
 
 - The analogy test is subjective. The dataset on which current models are trained does not encode our human sense and reasoning. Thus, given a word pair, the vector space model may find a different relationship from what human may find
+
+### 3. Concept Categorization
+
+- Given a task of separating words into 2 categories, the model should be able to categorize words sandwiches, tea, pasta, water into 2 groups.
+- Use Clustering algorithms to separate words into $n$ different categories.
+- One big problem is that: _Words_ can belong to multiple categories.
+- Due to the uncompromising nature of the performance metric, there is no adequate method in evaluation each cluster's quality.
+
+### 4. Outlier Detection
+
+- The goal is to find words that do not belong to a given group of words.
+- There is a clear gold standard for this evaluator since human performance on this task is extremely high as compare to word similarity tasks. **It is also less subjective**.
+- To formalize this evaluator mathematically, we can take a set of words:
+
+$$
+  \begin{align}
+    W = w_1, w_2, \dots, w_{n+1},
+  \end{align}
+$$
+
+- where there is one outlier. Next we take a compactness score of word $w$ as:
+
+$$
+  \begin{align}
+    c(w) = \frac{1}{n(n-1)} \sum_{w_i \in W \backslash w  } \sum_{w_j \in W \backslash w, w_j \neq w_i} sim(w_i,w_j)
+  \end{align}
+$$
+
+- The outlier is the word with the lowest compactness score.
+- Also, being similar to the word analogy evaluator, this evaluator relies heavily on human reasoning and logic.
+- The outliers defined by humans are strongly influenced by the characteristics of words perceived to be important. Yet, the recognized patterns might not be immediately clear to word embeddings models.
+
+### 5. QVEC
+
+- QVEC is an intrinsic evaluator that measures the component-wise correlation between word vectors from a word embedding model and manually constructed linguistic word vectors in the SemCor dataset.
+- The most prevalent problem with this evaluator is the subjectivity of man-made linguistic vectors. Current word embedding techniques perform much better than man-made models as they are based on statistical relations from data.
+
+## Experimental Results of Intrinsic Evaluators
+
+- 6 embeddings models as mentioned above were used to experiment.
+- For consistency, the training of the model were based on the same corpus - wiki2010. Medium size around 6G
+- **After preprocessing, all special characters were removed**.
+- Some models may perform better when being trained on larger datasets while others are less dataset dependent.
+- The same training dataset is used to fit a more general situation for fair comparison among different models.
+- For all the embedding models, the official released toolkit and default setting for training were used.
+-

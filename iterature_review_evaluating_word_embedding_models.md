@@ -128,4 +128,29 @@ $$
 - Some models may perform better when being trained on larger datasets while others are less dataset dependent.
 - The same training dataset is used to fit a more general situation for fair comparison among different models.
 - For all the embedding models, the official released toolkit and default setting for training were used.
--
+- 13 datasets for _Word Similarity_ were used:
+
+![word_sim datasets](image/word_similarity_dataset_benchmark.png "word_sim datasets")
+
+- Among the 13 datasets, WS-353, WS-353-SIM, WS-353-REL, Rare-Word are more popular because of their high quality of word pairs.
+- 2 datasets for _Word Analogy_ were used: 1. the Google dataset, and 2. the MSR dataset. Google dataset is divided into 2 categories of 'semantic' and 'morpho-syntactic'.Both _3CosAdd_ and _3CosMul_ inference methods are implemented.
+- 3 datasets for _Concept Categorization_ were used. 1. AP dataset, 2. BLESS dataset, 3. BM dataset
+
+Experimental Results:
+
+![performance word_embeddings](image/performance_WE.png "performance word_embeddings")
+
+- _Word Similarity_:
+
+  - We see that SGNS-based models perform better generally. Note that ngram2vec is an improvement to SGNS, and its performance is the best.
+  - Dict2Vec model provides the best result against the RW dataset. This could be attributed to that Dict2Vec is fine-tuned word vectors based on dictionaries, the Dict2Vec model is able to give better representation over rare words.
+
+- _Word Analogy_:
+
+  - SGNS performs the best
+  - Since, ngram2vec considers n-gram modes, the relationship within word sets maybe not probably captured.
+  - Dictionaries do not have such word sets, and thus, word analogy is not well-presented in the word vectors of Dict2Vec.
+  - FastText uses sub-words, its syntactic result is much better than its semantic result.
+
+- _Concept Categorization_:
+  -

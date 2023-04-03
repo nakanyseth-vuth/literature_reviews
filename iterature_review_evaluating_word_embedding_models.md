@@ -134,11 +134,16 @@ $$
 
 - Among the 13 datasets, WS-353, WS-353-SIM, WS-353-REL, Rare-Word are more popular because of their high quality of word pairs.
 - 2 datasets for _Word Analogy_ were used: 1. the Google dataset, and 2. the MSR dataset. Google dataset is divided into 2 categories of 'semantic' and 'morpho-syntactic'.Both _3CosAdd_ and _3CosMul_ inference methods are implemented.
-- 3 datasets for _Concept Categorization_ were used. 1. AP dataset, 2. BLESS dataset, 3. BM dataset
+- 3 datasets for _Concept Categorization_ were used. 1. AP dataset, 2. BLESS dataset, 3. BM dataset.
+- 2 datasets were adopted for this task. 1. WordSim-500, and 2. 8-8-8 dataset
 
 Experimental Results:
 
 ![performance word_embeddings](image/performance_WE.png "performance word_embeddings")
+
+![performance cc_outlier](image/results_cc_outlier.png "performance cc_outlier")
+
+![result qvec](image/result_qvec.png "result qvec")
 
 - _Word Similarity_:
 
@@ -153,4 +158,41 @@ Experimental Results:
   - FastText uses sub-words, its syntactic result is much better than its semantic result.
 
 - _Concept Categorization_:
-  -
+
+  - It can be seen that SGNS-based models (including SGNS, ngram2vec, and Dict2vec) perform better than others on all the three datasets.
+
+- _Outlier Detection_:
+
+  - Based on the observed performances, they are not consistent with each other for the 2 datasets. For instance, GloVe has the best performance on the WordSim-500, but its accuracy on the 8-8-8 dataset is the worst.
+  - This could be explained by the properties of the dataset
+
+- _QVEC_:
+  - The QVEC toolkit was used.
+  - ngram2vec performs the best among the 6 embedding models.
+
+## Experimental Results of Extrinsic Evaluators
+
+- 5 extrinsic evaluators were used:
+
+  - POS tagging
+  - Chunking
+  - NER
+  - Sentiment Analysis
+  - NMT
+
+- For POS tagging, Chunking, and NER use the following datasets:
+  - The Penn Treebank (PTB), the chunking of ColNLL'00 share task dataset, and the NER of CoNLL'03 shared task dataset.
+  - For inference tool, it used a simple window-based feed-forward nn architecture. It takes input of 5 at one time and passes them through **300-unit hidden layer**, a **tanh activation** function and a softmax layer before generating the result. It was trained on **10 epochs** using **Adam optimizer** with a **batch of 50**.
+
+![data_split](image/data_split.png "data_split")
+
+- Sentiment Analysis: 2 datasets were used
+
+  - 1. Internet Movie Database (IMBDb), and 2. Stanford Sentiment Treebank (SST). IMBDb contains 2 classes (negative, positive) and it consists of several sentences while SST has 3 classes (negative, neutral, positive) which consists of single sentence per label.
+
+  ![sentiment_analysis_data](image/sentiment_analysis_data.png "sentiment_analysis_data")
+
+  - This task was test on Bi_LSTM and CNN.
+  - For Bi-LSTM, they choose 2-layer Bi-LSTM with 256 hidden dimension
+  - The adopted CNN has 3 layers with 100 filters per layer of size [3,4,5], respectively.
+  - The embedding layers for all models are **fixed during training**, and all models are trained for **5 epochs** using the **Adam Optimizer**

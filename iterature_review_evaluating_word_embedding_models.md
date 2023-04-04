@@ -195,4 +195,12 @@ Experimental Results:
   - This task was test on Bi_LSTM and CNN.
   - For Bi-LSTM, they choose 2-layer Bi-LSTM with 256 hidden dimension
   - The adopted CNN has 3 layers with 100 filters per layer of size [3,4,5], respectively.
-  - The embedding layers for all models are **fixed during training**, and all models are trained for **5 epochs** using the **Adam Optimizer**
+  - The embedding layers for all models are **fixed during training**, and all models are trained for **5 epochs** using the **Adam Optimizer** with 0.0001 learning rate.
+
+- Neural Machine Translation:
+
+  - Encoder-Decoder (G Klein et al.) architecture was used
+  - The Europarl v8 dataset was used.
+  - The task was English-French translation.
+  - For French word embedding, pre-trained FastText model is utilized.
+  - A single layer of Bi-LSTM of **500 dimensions** for both encoder, and decoder. **Batch size is 30** and total **training iteration is 100,000**
